@@ -1,0 +1,68 @@
+extends ../layout
+
+block content
+  a(href='../')
+    span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
+    | Back To List
+  h1= title
+  h2 Details
+  div(class='row')
+    div(class='col-md-6')
+      dl(class='dl-horizontal')
+        dt Name
+        dd= center.name
+        dt Description
+        dd= center.description
+        dt Address
+        dd= center.address
+        dt Latitude
+        dd= center.latitude
+        dt Longitude
+        dd= center.longitude
+        dt Contact Email
+        dd
+          a(href='mailto:#{center.email}')= center.email
+        dt Phone Number
+        dd= center.phone_number
+
+    div(class='col-md-6')
+      div(id='map', style='height: 400px')
+      script.
+        var map;
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: #{center.latitude}, lng: #{center.longitude}},
+            zoom: 8
+          });
+          var marker = new google.maps.Marker({
+            position: {lat: #{center.latitude}, lng: #{center.longitude}},
+            map: map,
+            title: '#{center.name}'
+          });
+        }
+  div(class='row')
+    div(class='col-xs-12 col-sm-6 col-md-8')
+      h2 Needs
+    div(class='col-xs-6 col-md-4', style='text-align: right; padding-top: 30px')
+      a(href='add/') Add a Need 
+        span(class='glyphicon glyphicon-plus', aria-hidden='true')
+  table(class="table table-striped table-bordered")
+    tr
+      th Name
+      th Quantity
+      th Due Date
+      th 
+      th
+    each item in center.items
+      tr
+        td= item.name
+        td= item.quantity
+        td= item.due_date
+        td(class='center w80') 
+          a(href='details/#{item._id}') Change 
+            span(class='glyphicon glyphicon-pencil', aria-hidden='true')
+        td(class='center w80') 
+          a(href='delete/#{item._id}') Delete 
+            span(class='glyphicon glyphicon-remove', aria-hidden='true')
+
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBS07rZOPQhyZdE5qa7IYyZxevRvZe3UA0&callback=initMap', async, defer)

@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  h1= title
+  table(class="table table-striped table-bordered")
+    tr
+      th Name
+      th Latitude
+      th Longitude
+      th Email
+      th 
+      th 
+    each item in items
+      tr
+        td= item.name
+        td= item.latitude
+        td= item.longitude
+        td= item.email
+        td(class='center', style='text-align: center; width: 60px') 
+          a(href='/admin/center/details/#{item._id}') View
+        td(class='center', style='text-align: center; width: 60px') 
+          a(href='/admin/center/delete/#{item._id}') Delete
+  a(href="create") Create New Center
