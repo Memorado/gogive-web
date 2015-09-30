@@ -29,11 +29,6 @@ div(id='edit-modal', class='modal fade', role='dialog')
                     option(value='#{priority.id}', selected=item && item.priority == priority.id)
                       | #{priority.name}
             div(class='form-group')
-              label(for='description', class='col-sm-4 control-label')
-                | Description
-              div(class='col-sm-6 limit')
-                input(type='text', class='form-control', maxlength='30', name='description', id='description', value='#{item.description}')
-            div(class='form-group')
               label(for='name', class='col-sm-4 control-label')
                 | Due Date
               div(class='col-sm-6')
@@ -41,6 +36,11 @@ div(id='edit-modal', class='modal fade', role='dialog')
                   input(type='text', class='form-control', name='due_date', id='due_date', value='#{item.due_date}')
                   span(class='input-group-addon')
                     span(class='glyphicon glyphicon-calendar')
+            div(class='form-group')
+              label(for='description', class='col-sm-4 control-label')
+                | Description
+              div(class='col-sm-6 limit')
+                input(type='text', class='form-control', maxlength='30', name='description', id='description', value='#{item.description}')
         div(class='modal-footer')
           button(type='submit' class='btn btn-default') Save
           button(type='button', class='btn btn-default', data-dismiss='modal') Close

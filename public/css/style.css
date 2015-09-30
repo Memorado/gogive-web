@@ -79,3 +79,7 @@ h1.logo a {
 .dl-horizontal dd:after {
   content: none;
 }
+
+.hide {
+  display: hidden;
+}

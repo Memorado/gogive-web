@@ -16,20 +16,20 @@ block content
     div(class='col-md-6')
       dl(class='dl-horizontal')
         dt Name
-        dd= center.name
+        dd #{center.name} 
         dt Description
-        dd= center.description
+        dd #{center.description} 
         dt Address
-        dd= center.address
+        dd #{center.address} 
         dt Latitude
-        dd= center.latitude
+        dd #{center.latitude} 
         dt Longitude
-        dd= center.longitude
+        dd #{center.longitude} 
         dt Contact Email
         dd
-          a(href='mailto:#{center.email}')= center.email
+          a(href='mailto:#{center.email}') #{center.email} 
         dt Phone Number
-        dd= center.phone_number
+        dd #{center.phone_number} 
 
     div(class='col-md-6')
       div(id='map', style='height: 200px; text-align: center') Loading Map...
@@ -38,7 +38,7 @@ block content
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: #{center.latitude}, lng: #{center.longitude}},
-            zoom: 8
+            zoom: 14
           });
           var marker = new google.maps.Marker({
             position: {lat: #{center.latitude}, lng: #{center.longitude}},
@@ -62,7 +62,7 @@ block content
       th
     each item in center.items
       tr
-        td #{item.category.englishName} - #{item.category.englishName}
+        td #{item.category.englishName} - #{item.category.germanName}
         td= item.description
         td= item.priority_name
         td= item.due_date

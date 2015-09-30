@@ -17,12 +17,12 @@ block content
         label(for='name', class='col-sm-2 control-label')
           | Name
         div(class='col-sm-10')
-          input(type='text', class='form-control', name='name', id='name', value='#{center.name}')
+          input(type='text', class='form-control', name='name', id='name', value='#{center.name}', placeholder='Help Inc.')
       div(class='form-group')
         label(for='name', class='col-sm-2 control-label')
           | Description
         div(class='col-sm-10')
-          textarea(class='form-control', rows='3', name='description', id='description')
+          textarea(class='form-control', rows='3', name='description', id='description', placeholder='Here you can write important information about your centre, e.g opening hours, bank details for donations, important things to know before donating etc.')
             | #{center.description}
       div(class='form-group')
         label(for='name', class='col-sm-2 control-label')
@@ -30,16 +30,16 @@ block content
         div(class='col-sm-10')
           textarea(class='form-control', rows='3', name='address', id='address')
             | #{center.address}
-      div(class='form-group')
+      div(class='form-group hide')
         label(for='name', class='col-sm-2 control-label')
           | Latitude
         div(class='col-sm-10')
-          input(type='text', class='form-control', name='latitude', id='latitude', value='#{center.latitude}')
-      div(class='form-group')
+          input(type='text', class='form-control', name='latitude', id='latitude', data-geo='lat', value='#{center.latitude}')
+      div(class='form-group hide')
         label(for='name', class='col-sm-2 control-label')
           | Longitude
         div(class='col-sm-10')
-          input(type='text', class='form-control', name='longitude', id='longitude', value='#{center.longitude}')
+          input(type='text', class='form-control', name='longitude', id='longitude', data-geo='lng', value='#{center.longitude}')
       div(class='form-group')
         label(for='name', class='col-sm-2 control-label')
           | Contact Email
@@ -54,3 +54,10 @@ block content
         div(class='col-sm-offset-2 col-sm-10')
           button(type='submit' class='btn btn-default')
             | Save
+  script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBS07rZOPQhyZdE5qa7IYyZxevRvZe3UA0&libraries=places')
+  script(type='text/javascript', src='/js/jquery.geocomplete.min.js')
+  script.
+    $("#address").geocomplete({
+      details: "form",
+      detailsAttribute: "data-geo"
+    });
