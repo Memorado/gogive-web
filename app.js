@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
-  mongoose.connect("localhost:27017/db", options);
+  mongoose.connect("mongodb://memorado:memoradoftw@ds041563.mongolab.com:41563/heroku_sfd3n0ws", options);
 };
 connect();
 
