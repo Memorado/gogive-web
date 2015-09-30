@@ -1,15 +1,32 @@
 extends ../layout
 
 block content
-  div(class='container')
-    form(class='form-signin', method='POST')
-      h2(class='form-signin-heading') Please sign in
-      label(for='inputEmail', class='sr-only') Email
-      input(type='email', class='form-control', id='username', name='username', placeholder='Email', required, autofocus)
-      label(for='inputEmail', class='sr-only') Password
-      input(type='password', class='form-control', id='password', name='password', placeholder='Password', required)
-      div(class='checkbox')
-        label
-          input(type='checkbox', value='remember-me') 
-          | Remember me
-      button(class='btn btn-lg btn-primary btn-block', type='submit') Sign In
+  div(style="width:800px; margin: 0 auto")
+    div(class='row center')
+      h1(class='logo')
+        a(href='/')
+          img(src='/img/logo.png', alt='GoGive', style='max-height:200px; padding: 20px')
+          span(style='display: block') GoGive
+          span(style='display: block; font-size:16px') for Help Centers
+    div(class='row')
+      div(class='col-md-6')
+        p
+          h2(style='font-size:18px') We want to help those who help:
+          ul
+            li Create an account for storing info about your help center
+            li Create and manage your needs
+            li 
+              strong GoGive 
+              | notifies willing donators about your needs via our app
+            li Donors can localize your help center and already know what's most needed
+      div(class='col-md-6')
+        form(class='form-signin', method='POST')
+          label(for='inputEmail', class='sr-only') Email
+          input(type='email', class='form-control', id='username', name='username', placeholder='Email', required, autofocus)
+          label(for='inputEmail', class='sr-only') Password
+          input(type='password', class='form-control', id='password', name='password', placeholder='Password', required)
+          div(class='checkbox')
+            label
+              input(type='checkbox', value='remember-me') 
+              | Remember me
+          button(class='btn btn-lg btn-primary btn-block', type='submit') Sign In

@@ -38,6 +38,10 @@ body {
   border-top-right-radius: 0;
 }
 
+.center {
+  text-align: center
+}
+
 table td.center {
   text-align: center
 }
@@ -48,4 +52,18 @@ table td.delete a {
 
 table td.w80 {
   width: 100px;
+}
+
+h1.logo {
+  font-weight: 200; 
+  font-size: 45px;
+  padding: 20px 0 30px;
+}
+
+h1.logo a {
+  color: grey;
+}
+
+.logo a:hover {
+  text-decoration: none;
 }
