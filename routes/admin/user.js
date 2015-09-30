@@ -18,6 +18,11 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
   res.redirect('/admin/center');
 });
 
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
+});
+
 router.get('/create', function(req, res, next) {
   // var user = User({
 	 //  name: "Test Admin",

@@ -31,8 +31,8 @@ div(id='edit-modal', class='modal fade', role='dialog')
             div(class='form-group')
               label(for='description', class='col-sm-4 control-label')
                 | Description
-              div(class='col-sm-6')
-                input(type='text', class='form-control', name='description', id='description', value='#{item.description}')
+              div(class='col-sm-6 limit')
+                input(type='text', class='form-control', maxlength='30', name='description', id='description', value='#{item.description}')
             div(class='form-group')
               label(for='name', class='col-sm-4 control-label')
                 | Due Date
@@ -46,8 +46,9 @@ div(id='edit-modal', class='modal fade', role='dialog')
           button(type='button', class='btn btn-default', data-dismiss='modal') Close
 script(type='text/javascript', src='/js/moment.min.js')
 script(type='text/javascript', src='/js/bootstrap-datetimepicker.min.js')
+script(type='text/javascript', src='/js/bootstrap-limit.min.js')
 script(type='text/javascript').
   $(function () {
-      $('.datetimepicker').datetimepicker({
-      });
+      $('.datetimepicker').datetimepicker({});
+      $('input.limit').limit({});
   });

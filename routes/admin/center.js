@@ -51,7 +51,7 @@ router.post('/new', loggedIn, function(req, res, next) {
 });
 
 router.get('/:center_id', loggedIn, function(req, res, next) {
-  Center.findOne({ _id: req.params.center_id }).populate('items').exec(function(error, center) {
+  Center.findOne({ _id: req.params.center_id }).populate({path: 'items', options: {sort: {'priority': -1}}}).exec(function(error, center) {
     var options = {
       path: 'items.category',
       model: 'Category'
