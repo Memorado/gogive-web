@@ -17,7 +17,7 @@ function loggedIn(req, res, next) {
 
 router.get('/', loggedIn, function(req, res, next) {
   Center.find().populate('items').exec(function(err, centers) {
-    res.render('admin/center/list', { title: 'Admin', items: centers });
+    res.render('admin/center/list', { title: 'Admin', items: centers, user_name: req.user.name });
   });
 });
 

@@ -2,10 +2,15 @@ extends ../layout
 
 block content
   div(class='row')
+    div(class='col-xs-12' style='text-align: right')
+      | Logged in as #{user_name} | 
+      a(href='/admin/user/logout') Logout
+  div(class='row')
     div(class='col-xs-12 col-sm-6 col-md-8')
       h1= title
     div(class='col-xs-6 col-md-4', style='text-align: right; padding-top: 30px')
-      a(href="/admin/center/new/") Create New Center
+      a(href="/admin/center/new/") Create New Center 
+        span(class='glyphicon glyphicon-plus', aria-hidden='true')
   table(class="table table-striped table-bordered")
     tr
       th Name

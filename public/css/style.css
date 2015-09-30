@@ -67,3 +67,15 @@ h1.logo a {
 .logo a:hover {
   text-decoration: none;
 }
+
+.dl-horizontal dd {
+  white-space: pre;
+}
+
+.dl-horizontal dd:before {
+  content: none;
+}
+
+.dl-horizontal dd:after {
+  content: none;
+}
