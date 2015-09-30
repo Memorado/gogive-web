@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  if center._id 
+    a(href='/admin/center/#{center._id}/')
+      span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
+      | Back To Details
+  else
+    a(href='/admin/center/')
+      span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
+      | Back To List
+  h1= title
+  h2 Edit
+  div(class='row')
+    form(class='form-horizontal', method='POST')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Name
+        div(class='col-sm-10')
+          input(type='text', class='form-control', name='name', id='name', value='#{center.name}')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Description
+        div(class='col-sm-10')
+          input(type='text', class='form-control', name='description', id='description', value='#{center.description}')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Address
+        div(class='col-sm-10')
+          textarea(class='form-control', rows='3', name='address', id='address')
+            | #{center.address}
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Latitude
+        div(class='col-sm-10')
+          input(type='text', class='form-control', name='latitude', id='latitude', value='#{center.latitude}')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Longitude
+        div(class='col-sm-10')
+          input(type='text', class='form-control', name='longitude', id='longitude', value='#{center.longitude}')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Contact Email
+        div(class='col-sm-10')
+          input(type='email', class='form-control', name='email', id='email', value='#{center.email}')
+      div(class='form-group')
+        label(for='name', class='col-sm-2 control-label')
+          | Phone Number
+        div(class='col-sm-10')
+          input(type='phone', class='form-control', name='phone_number', id='phone_number', value='#{center.phone_number}')
+      div(class='form-group')
+        div(class='col-sm-offset-2 col-sm-10')
+          button(type='submit' class='btn btn-default')
+            | Save

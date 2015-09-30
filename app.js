@@ -1,15 +1,16 @@
 var fs = require('fs');
 var join = require('path').join;
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport')
-var mongoose = require('mongoose')
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var app = express();
+var mongoose = require('mongoose');
 
 // Connect to mongodb
 var connect = function () {
@@ -26,18 +27,11 @@ fs.readdirSync(join(__dirname, 'models')).forEach(function (file) {
   if (~file.indexOf('.js')) require(join(__dirname, 'models', file));
 });
 
+var User = mongoose.model('User');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
 
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -45,13 +39,42 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username + " " + password)
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect email.' });
+      }
+      if (!user.authenticate(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findOne({ _id: id }, function(err, user) {
+    done(null, user);
+  });
+});
+
+var index = require('./routes/index');
 var api = require('./routes/api/center');
 var admin_center = require('./routes/admin/center');
 var admin_user = require('./routes/admin/user');
 
+app.use('/', index);
 app.use('/api/center', api);
 app.use('/admin/center', admin_center);
 app.use('/admin/user', admin_user);
@@ -62,8 +85,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
