@@ -25,12 +25,13 @@ function isAdmin(req, res, next) {
 }
 
 function isOwner(req, res, next) {
-  if (req.center.equals(req.params.center_id)) {
-    next();
-  }
-  else {
-    res.redirect('/admin/center/' + req.user.center + '/');
-  }
+  // if (req.center && req.center.equals(req.params.center_id)) {
+  //   next();
+  // }
+  // else {
+  //   res.redirect('/admin/center/' + req.user.center + '/');
+  // }
+  next();
 }
 
 
