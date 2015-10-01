@@ -1,9 +1,10 @@
 extends ../layout
 
 block content
-  a(href='/admin/center/')
-    span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
-    | Back To List
+  if show_back
+    a(href='/admin/center/')
+      span(class='glyphicon glyphicon-chevron-left', aria-hidden='true')
+      | Back To List
   h1= title
   div(class='row')
     div(class='col-xs-12 col-sm-6 col-md-8')
@@ -17,7 +18,7 @@ block content
       dl(class='dl-horizontal')
         dt Name
         dd #{center.name} 
-        dt Description
+        dt Guidelines
         dd #{center.description} 
         dt Address
         dd #{center.address} 
@@ -65,7 +66,7 @@ block content
         td #{item.category.englishName} - #{item.category.germanName}
         td= item.description
         td= item.priority_name
-        td= item.due_date
+        td= item.due_date_string
         td(class='center w80') 
           a(href='#' onclick='editForm("#{item._id}"); return false;') Change 
             span(class='glyphicon glyphicon-pencil', aria-hidden='true')

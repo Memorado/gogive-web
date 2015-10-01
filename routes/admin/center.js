@@ -7,7 +7,7 @@ var Center = mongoose.model('Center');
 var Item = mongoose.model('Item');
 var Category = mongoose.model('Category');
 
-function loggedIn(req, res, next) {
+function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
@@ -15,25 +15,47 @@ function loggedIn(req, res, next) {
   }
 }
 
-router.get('/', loggedIn, function(req, res, next) {
+function isAdmin(req, res, next) {
+  if (req.user.admin) {
+    next();
+  }
+  else {
+    res.redirect('/admin/center/' + req.user.center + '/');
+  }
+}
+
+function isOwner(req, res, next) {
+  if (req.center.equals(req.params.center_id)) {
+    next();
+  }
+  else {
+    res.redirect('/admin/center/' + req.user.center + '/');
+  }
+}
+
+
+router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
   Center.find().populate('items').exec(function(err, centers) {
     res.render('admin/center/list', { title: 'Admin', items: centers, user_name: req.user.name });
   });
 });
 
-router.get('/new', loggedIn, function(req, res, next) {
-  res.render('admin/center/edit', { title: "New Center", center: { 
-    name: "",
-    longitude: 0,
-    latitude: 0,
-    email: "",
-    address: "",
-    description: "",
-    phone_number: ""
-  }});
+router.get('/new', isLoggedIn, function(req, res, next) {
+  res.render('admin/center/edit', { 
+    title: "New Center", 
+    center: { 
+      name: "",
+      longitude: 0,
+      latitude: 0,
+      email: "",
+      address: "",
+      description: "",
+      phone_number: ""
+    }
+  });
 });
 
-router.post('/new', loggedIn, function(req, res, next) {
+router.post('/new', isLoggedIn, function(req, res, next) {
   var center = Center({
     name: req.body.name,
     longitude: req.body.longitude,
@@ -50,19 +72,19 @@ router.post('/new', loggedIn, function(req, res, next) {
   });
 });
 
-router.get('/:center_id', loggedIn, function(req, res, next) {
+router.get('/:center_id', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOne({ _id: req.params.center_id }).populate({path: 'items', options: {sort: {'priority': -1}}}).exec(function(error, center) {
     var options = {
       path: 'items.category',
       model: 'Category'
     };
     Category.populate(center, options, function (err, center) {
-      res.render('admin/center/details', { title: center.name, center: center });
+      res.render('admin/center/details', { title: center.name, center: center, show_back: req.user.admin == true });
     });
   })
 });
 
-router.get('/:center_id/edit', loggedIn, function(req, res, next) {
+router.get('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOne({ _id: req.params.center_id }, function(error, center) {
     Category.find({}).sort('englishName').exec(function(error, categories) {
       res.render('admin/center/edit', { title: center.name, center: center, categories: categories });
@@ -70,7 +92,7 @@ router.get('/:center_id/edit', loggedIn, function(req, res, next) {
   })
 });
 
-router.post('/:center_id/edit', loggedIn, function(req, res, next) {
+router.post('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOne({ _id: req.params.center_id }, function(error, center) {
     center.name = req.body.name;
     center.longitude = req.body.longitude;
@@ -87,13 +109,13 @@ router.post('/:center_id/edit', loggedIn, function(req, res, next) {
   })
 });
 
-router.get('/:center_id/delete', loggedIn, function(req, res, next) {
+router.get('/:center_id/delete', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOneAndRemove({ _id: req.params.center_id }, function(error, center) {
     res.redirect('/admin/center/');
   })
 });
 
-router.get('/:center_id/new', loggedIn, function(req, res, next) {
+router.get('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
   Category.find({}).sort('englishName').exec(function(error, categories) {
     res.render('admin/center/edit-item', { 
       item: {
@@ -116,7 +138,7 @@ router.get('/:center_id/new', loggedIn, function(req, res, next) {
   })
 });
 
-router.post('/:center_id/new', loggedIn, function(req, res, next) {
+router.post('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOne({ _id: req.params.center_id }, function(error, center) {
     Category.findOne({ _id: req.body.category }, function(error, category) {
       var item = Item({
@@ -137,7 +159,7 @@ router.post('/:center_id/new', loggedIn, function(req, res, next) {
   });
 });
 
-router.get('/:center_id/:item_id/edit', loggedIn, function(req, res, next) {
+router.get('/:center_id/:item_id/edit', isLoggedIn, isOwner, function(req, res, next) {
   Item.findOne({ _id: req.params.item_id }).populate('center').populate('category').exec(function(error, item) {
     Category.find({}).sort('englishName').exec(function(error, categories) {
       res.render('admin/center/edit-item', { 
@@ -154,7 +176,7 @@ router.get('/:center_id/:item_id/edit', loggedIn, function(req, res, next) {
   });
 });
 
-router.post('/:center_id/:item_id/edit', loggedIn, function(req, res, next) {
+router.post('/:center_id/:item_id/edit', isLoggedIn, isOwner, function(req, res, next) {
   Item.findOne({ _id: req.params.item_id }, function(error, item) {
     Category.findOne({ _id: req.body.category }, function(error, category) {
       item.name = req.body.name;
@@ -172,7 +194,7 @@ router.post('/:center_id/:item_id/edit', loggedIn, function(req, res, next) {
   })
 });
 
-router.get('/:center_id/:item_id/delete', loggedIn, function(req, res, next) {
+router.get('/:center_id/:item_id/delete', isLoggedIn, isOwner, function(req, res, next) {
   Item.findOneAndRemove({ _id: req.params.item_id }, function(error, center) {
     res.redirect('/admin/center/' + req.params.center_id + '/');
   })

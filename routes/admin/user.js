@@ -11,11 +11,26 @@ var Item = mongoose.model('Item');
 var Category = mongoose.model('Category');
 
 router.get('/login', function(req, res, next) {
-  res.render('admin/user/login', { title: 'Login' });
+  res.render('admin/user/login', { title: 'Login', messages: req.flash() });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res, next) {
-  res.redirect('/admin/center');
+router.post('/login', passport.authenticate('local', { failureRedirect: '/admin/user/login', failureFlash: true } ), function(req, res, next) {
+  if (req.user.admin) {
+    res.redirect('/admin/center/');
+  }
+  else if (req.user.center) {
+    res.redirect('/admin/center/' + req.user.center + '/');
+  }
+  else {
+    req.logout();
+    res.render('admin/error', {
+      title: "Error",
+      message: "This user doesn't have any center associated to it",
+      error: {
+        stack: "Please associate this user with a center prior to logging in."
+      }
+    });
+  }
 });
 
 router.get('/logout', function(req, res, next) {
@@ -24,14 +39,18 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/create', function(req, res, next) {
-  // var user = User({
-	 //  name: "Test Admin",
-	 //  username: "test@memorado.com",
-	 //  password: "memoradoftw"
-  // });
-  // user.save(function (err) {
-  // 	if (err) // ...
-  // 	console.log('meow');
+  // Center.findOne({}, function(err, center) {
+  //   var user = User({
+  // 	  name: "Test Center",
+  // 	  username: "center@memorado.com",
+  // 	  password: "memoradoftw",
+  //     center: center,
+  //     admin: false
+  //   });
+  //   user.save(function (err) {
+  //   	if (err) // ...
+  //   	console.log('meow');
+  //   });
   // });
   // var catObjects = [
   //   {englishName:"Baby milk (tetrapak)",germanName:"Baby Anfangsmilch Tetrapak"},

@@ -12,6 +12,8 @@ var UserSchema = new Schema({
   hashed_password: { type: String, default: '' },
   salt: { type: String, default: '' },
   authToken: { type: String, default: '' },
+  admin: { type: Boolean, default: false },
+  center: { type:Schema.ObjectId, ref: "Center" }
 });
 
 /**

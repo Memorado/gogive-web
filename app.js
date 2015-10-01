@@ -11,6 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var app = express();
 var mongoose = require('mongoose');
+var flash = require('connect-flash');
 
 // Connect to mongodb
 var connect = function () {
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 passport.use(new LocalStrategy(
   function(username, password, done) {

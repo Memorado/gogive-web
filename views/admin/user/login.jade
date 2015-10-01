@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  div(style="width:800px; margin: 0 auto")
+  div(style="max-width:800px; margin: 0 auto")
     div(class='row center')
       h1(class='logo')
         a(href='/')
@@ -21,6 +21,11 @@ block content
             li Donors can localize your help center and already know what's most needed
       div(class='col-md-6')
         form(class='form-signin', method='POST')
+          each message in messages
+            div(class='alert alert-danger', role='alert')
+              span(class='glyphicon glyphicon-exclamation-sign', aria-hidden='true')
+              span(class='sr-only') Error:
+              |  #{message}
           label(for='inputEmail', class='sr-only') Email
           input(type='email', class='form-control', id='username', name='username', placeholder='Email', required, autofocus)
           label(for='inputEmail', class='sr-only') Password
