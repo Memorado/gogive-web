@@ -24,8 +24,11 @@ function isAdmin(req, res, next) {
   }
 }
 
-function isOwner(req, res, next) {
-  if (req.user.center && req.user.center.equals(req.params.center_id)) {
+function isOwnerOrAdmin(req, res, next) {
+  if (req.user.admin) {
+    next();
+  }
+  else if (req.user.center && req.user.center.equals(req.params.center_id)) {
     next();
   }
   else {
