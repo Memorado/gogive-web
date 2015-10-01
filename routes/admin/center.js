@@ -24,7 +24,7 @@ function isAdmin(req, res, next) {
   }
 }
 
-function isOwnerOrAdmin(req, res, next) {
+function isOwner(req, res, next) {
   if (req.user.admin) {
     next();
   }
