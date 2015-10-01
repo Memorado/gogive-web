@@ -11,16 +11,18 @@ block content
     div(class='row')
       div(class='col-md-6')
         p
-          h2(style='font-size:18px') We want to help those who help:
+          h2(style='font-size:18px') We want to help those who help.
+          h3(style='font-size:16px; font-weight: normal') GoGive makes it easy for donation centres to inform donors of which items are required most. 
+          h4(style='font-size:16px') With GoGive, you can:
           ul
-            li Create an account for storing info about your help center
-            li Create and manage your needs
-            li 
-              strong GoGive 
-              | notifies willing donators about your needs via our app
-            li Donors can localize your help center and already know what's most needed
+            li Create an account for storing info about your centre
+            li Create a digitalised list of which items you need
+            li Specify urgency, deadline and details about required items
+            li Items are updated in real-time in the app whenever you make changes
+
       div(class='col-md-6')
         form(class='form-signin', method='POST')
+          h2(style='font-size:18px; margin-top: 0px') Login
           each message in messages
             div(class='alert alert-danger', role='alert')
               span(class='glyphicon glyphicon-exclamation-sign', aria-hidden='true')
