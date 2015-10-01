@@ -47,3 +47,15 @@ block content
     span {
       text-decoration: underline;
     }
+  script.
+    var images = [];
+    function preload() {
+        for (i = 0; i < arguments.length; i++) {
+            images[i] = new Image();
+            images[i].src = preload.arguments[i];
+        }
+    }
+    preload(
+      "/img/background-scene.jpg"
+    )
+
