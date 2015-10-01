@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  div(class='row', style='max-width: 800px; margin: 180px auto 0; text-align: center')
-    div(class='col-md-6 col-xs-12 floaters')
-      img(src='/img/landing-logo.svg' style='max-width: 100%;')
+  div(class='row', style='max-width: 800px; margin: 10% auto 0; text-align: center')
+    div(class='col-md-6 col-xs-12')
+      img(src='/img/landing-logo.svg' style='max-width: 300px; width: 100%; padding: 0 50px')
       h1 GoGive
-      h2 Discover where, what and how to<br \>donate to refugees in your area
+      h2 Discover where, what and how to donate to refugees in your area
       p
         a(href='#')
           img(src='/img/app-store.svg', alt='App Store', style='max-width: 100%')
@@ -15,28 +15,25 @@ block content
   style.
     html {
       height: 100% !important;
-      background:#131E24 url(/img/background-scene.jpg) no-repeat 50% 50%;
+      background:#131E24 url(/img/background-scene.jpg) no-repeat 50% 10%;
     }
     body {
       background: none;
       color: white;
     }
-    .floaters {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
     h1 {
       margin-top: 40px;
       font-weight: 100;
-      font-size: 64px;
+      font-size: 48px;
     }
     h2 {
       margin-top: -10px;
       margin-bottom: 50px;
       font-weight: 100;
-      font-size: 20px;
+      font-size: 16px;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
     }
     p {
       font-weight: 100;
