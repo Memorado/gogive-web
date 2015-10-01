@@ -25,13 +25,12 @@ function isAdmin(req, res, next) {
 }
 
 function isOwner(req, res, next) {
-  // if (req.center && req.center.equals(req.params.center_id)) {
-  //   next();
-  // }
-  // else {
-  //   res.redirect('/admin/center/' + req.user.center + '/');
-  // }
-  next();
+  if (req.user.center && req.user.center.equals(req.params.center_id)) {
+    next();
+  }
+  else {
+    res.redirect('/admin/center/' + req.user.center + '/');
+  }
 }
 
 
@@ -41,7 +40,7 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
   });
 });
 
-router.get('/new', isLoggedIn, function(req, res, next) {
+router.get('/new', isLoggedIn, isAdmin, function(req, res, next) {
   res.render('admin/center/edit', { 
     title: "New Center", 
     center: { 
@@ -56,7 +55,7 @@ router.get('/new', isLoggedIn, function(req, res, next) {
   });
 });
 
-router.post('/new', isLoggedIn, function(req, res, next) {
+router.post('/new', isLoggedIn, isAdmin, function(req, res, next) {
   var center = Center({
     name: req.body.name,
     longitude: req.body.longitude,
