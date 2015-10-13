@@ -13,10 +13,15 @@ var app = express();
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
+var dbURI = process.env.DBURL
+if (dbURI == null) {
+  dbURI = "mongodb://localhost/db"
+}
+
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
-  mongoose.connect("mongodb://memorado:memoradoftw@ds041563.mongolab.com:41563/heroku_sfd3n0ws", options);
+  mongoose.connect(dbURI, options);
 };
 connect();
 
