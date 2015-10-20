@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  div(class='row')
+    div(class='col-xs-12 col-sm-6 col-md-8')
+    if lang == 'de'
+      h2 Bedürfnisse
+    else
+      h2 Needs
+    div(class='col-xs-6 col-md-4', style='text-align: right; padding-top: 30px')
+  table(class="table table-striped table-bordered")
+    tr
+      if lang == 'de' 
+        th Kategorie
+        th Beschreibung
+        th Priorität
+        th Fälligkeitsdatum
+      else
+        th Category
+        th Description
+        th Priority
+        th Due Date
+    each item in center.items
+      tr
+        if lang == 'de' 
+          td #{item.category.germanName}
+        else
+          td #{item.category.englishName}
+        td= item.description
+        td= item.priority_name
+        td= item.due_date_string

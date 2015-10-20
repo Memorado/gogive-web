@@ -17,6 +17,7 @@ block content
       th Latitude
       th Longitude
       th Email
+      th Public Link
       th 
       th 
     each item in items
@@ -25,6 +26,10 @@ block content
         td= item.latitude
         td= item.longitude
         td= item.email
+        td
+          a(href='/center/#{item._id}/') EN
+          ||
+          a(href='/center/de/#{item._id}/') DE
         td(class='center w80') 
           a(href='/admin/center/#{item._id}/') View 
             span(class='glyphicon glyphicon-eye-open', aria-hidden='true')

@@ -76,12 +76,14 @@ passport.deserializeUser(function(id, done) {
 });
 
 var index = require('./routes/index');
-var api = require('./routes/api/center');
+var center_index = require('./routes/center/index');
+var api_center = require('./routes/api/center');
 var admin_center = require('./routes/admin/center');
 var admin_user = require('./routes/admin/user');
 
 app.use('/', index);
-app.use('/api/center', api);
+app.use('/center', center_index);
+app.use('/api/center', api_center);
 app.use('/admin/center', admin_center);
 app.use('/admin/user', admin_user);
 
