@@ -18,19 +18,25 @@ block content
       dl(class='dl-horizontal')
         dt Name
         dd #{center.name} 
-        dt Guidelines
-        dd #{center.description} 
+        if center.description
+          dt Guidelines
+          dd #{center.description} 
         dt Address
         dd #{center.address} 
         dt Latitude
         dd #{center.latitude} 
         dt Longitude
         dd #{center.longitude} 
-        dt Contact Email
+        if center.email
+          dt Contact Email
+          dd
+            a(href='mailto:#{center.email}') #{center.email}
+        if center.phone_number
+          dt Phone Number
+          dd #{center.phone_number} 
+        dt(style="padding:10px 0") Public Link
         dd
-          a(href='mailto:#{center.email}') #{center.email} 
-        dt Phone Number
-        dd #{center.phone_number} 
+          pre http://www.gogiveapp.com/center/#{center.id}
 
     div(class='col-md-6')
       div(id='map', style='height: 200px; text-align: center') Loading Map...
@@ -53,26 +59,29 @@ block content
     div(class='col-xs-6 col-md-4', style='text-align: right; padding-top: 30px')
       a(href='#' onclick='newForm(); return false;') Add a Need 
         span(class='glyphicon glyphicon-plus', aria-hidden='true')
-  table(class="table table-striped table-bordered")
-    tr
-      th Category
-      th Description
-      th Priority
-      th Due Date
-      th 
-      th
-    each item in center.items
+  if center.items.length > 0
+    table(class="table table-striped table-bordered")
       tr
-        td #{item.category.englishName} - #{item.category.germanName}
-        td= item.description
-        td= item.priority_name
-        td= item.due_date_string
-        td(class='center w80') 
-          a(href='#' onclick='editForm("#{item._id}"); return false;') Change 
-            span(class='glyphicon glyphicon-pencil', aria-hidden='true')
-        td(class='center w80 delete') 
-          a(href='/admin/center/#{center._id}/#{item._id}/delete/') Delete 
-            span(class='glyphicon glyphicon-remove', aria-hidden='true')
+        th Category
+        th Description
+        th Priority
+        th Due Date
+        th 
+        th
+      each item in center.items
+        tr
+          td #{item.category.englishName} - #{item.category.germanName}
+          td= item.description
+          td= item.priority_name
+          td= item.due_date_string
+          td(class='center w80') 
+            a(href='#' onclick='editForm("#{item._id}"); return false;') Change 
+              span(class='glyphicon glyphicon-pencil', aria-hidden='true')
+          td(class='center w80 delete') 
+            a(href='/admin/center/#{center._id}/#{item._id}/delete/') Delete 
+              span(class='glyphicon glyphicon-remove', aria-hidden='true')
+  else
+    p This help center has not yet specified any of their needs.
 
   div(id='modal')
 

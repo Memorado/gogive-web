@@ -83,3 +83,7 @@ h1.logo a {
 .hide {
   display: hidden;
 }
+
+dd {
+  margin: 10px 0;
+}
