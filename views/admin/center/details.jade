@@ -33,16 +33,22 @@ block content
             a(href='mailto:#{center.email}') #{center.email}
         if center.phone_number
           dt Phone Number
-          dd #{center.phone_number} 
-        dt(style="padding:10px 0") English Public Link
+          dd #{center.phone_number}
+        dt(style="padding:10px 0") English Direct Link
         dd
-          pre http://www.gogiveapp.com/center/#{center.id}
-        dt(style="padding:10px 0") German Public Link
+          pre http://www.gogiveapp.com/center/#{center.id}/
+        dt(style="padding:10px 0") German Direct Link
         dd
-          pre http://www.gogiveapp.com/center/de/#{center.id}
+          pre http://www.gogiveapp.com/center/de/#{center.id}/
+        dt(style="padding:10px 0") English Embed Code
+        dd
+          pre= '<iframe src="http://www.gogiveapp.com/center/'+ center.id +'/" scrolling="auto" frameborder="no" align="center" height="500px" width="100%"></iframe>'
+        dt(style="padding:10px 0") German Embed Code
+        dd
+          pre= '<iframe src="http://www.gogiveapp.com/center/de/'+ center.id +'/" scrolling="auto" frameborder="no" align="center" height="500px" width="100%"></iframe>'
 
     div(class='col-md-6')
-      div(id='map', style='height: 200px; text-align: center') Loading Map...
+      div(id='map', style='height: 400px; text-align: center') Loading Map...
       script.
         var map;
         function initMap() {
