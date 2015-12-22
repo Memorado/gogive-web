@@ -15,7 +15,7 @@
     "serve-favicon": "~2.3.0",
     "passport": "0.3.x",
     "passport-local": "1.x",
-    "mongoose": "4.x",
+    "mongoose": "4.3.3",
     "mongoose-relationship": "0.1.x",
     "express-session": "1.11.x",
     "dateformat": "1.0.x",
