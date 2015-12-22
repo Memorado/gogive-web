@@ -15,7 +15,7 @@ var flash = require('connect-flash');
 
 var dbURI = process.env.MONGO_URL
 if (dbURI == null) {
-  dbURI = "mongodb://gogive:81fa774ec04f3a5ea3b6df6b1ab4a431@carlossless.io:17196/gogive"
+  dbURI = "mongodb://localhost/db"
 }
 
 // Connect to mongodb
