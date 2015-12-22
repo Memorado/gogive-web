@@ -13,7 +13,7 @@ router.get('/:center_id', function(req, res, next) {
     Category.populate(center, options, function (err, center) {
       res.render('center/index', { title: center.name, center: center });
     });
-  })
+  });
 });
 
 router.get('/:lang/:center_id', function(req, res, next) {
@@ -25,7 +25,7 @@ router.get('/:lang/:center_id', function(req, res, next) {
     Category.populate(center, options, function (err, center) {
       res.render('center/index', { title: center.name, center: center, lang: req.params.lang });
     });
-  })
+  });
 });
 
 module.exports = router;

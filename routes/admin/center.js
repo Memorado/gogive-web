@@ -44,9 +44,9 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
 });
 
 router.get('/new', isLoggedIn, isAdmin, function(req, res, next) {
-  res.render('admin/center/edit', { 
-    title: "New Center", 
-    center: { 
+  res.render('admin/center/edit', {
+    title: "New Center",
+    center: {
       name: "",
       longitude: 0,
       latitude: 0,
@@ -82,9 +82,9 @@ router.get('/:center_id', isLoggedIn, isOwner, function(req, res, next) {
       model: 'Category'
     };
     Category.populate(center, options, function (err, center) {
-      res.render('admin/center/details', { title: center.name, center: center, show_back: req.user.admin == true });
+      res.render('admin/center/details', { title: center.name, center: center, show_back: req.user.admin === true });
     });
-  })
+  });
 });
 
 router.get('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
@@ -92,7 +92,7 @@ router.get('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
     Category.find({}).sort('englishName').exec(function(error, categories) {
       res.render('admin/center/edit', { title: center.name, center: center, categories: categories });
     });
-  })
+  });
 });
 
 router.post('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
@@ -109,18 +109,18 @@ router.post('/:center_id/edit', isLoggedIn, isOwner, function(req, res, next) {
       if (err) // ...
         console.log(err);
     });
-  })
+  });
 });
 
 router.get('/:center_id/delete', isLoggedIn, isOwner, function(req, res, next) {
   Center.findOneAndRemove({ _id: req.params.center_id }, function(error, center) {
     res.redirect('/admin/center/');
-  })
+  });
 });
 
 router.get('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
   Category.find({}).sort('englishName').exec(function(error, categories) {
-    res.render('admin/center/edit-item', { 
+    res.render('admin/center/edit-item', {
       item: {
         name: "",
         description: "",
@@ -137,8 +137,8 @@ router.get('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
         { id: 2, name: "High Priority" }
       ],
       action_url: '/admin/center/' + req.params.center_id + '/new/'
-    })
-  })
+    });
+  });
 });
 
 router.post('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
@@ -165,17 +165,17 @@ router.post('/:center_id/new', isLoggedIn, isOwner, function(req, res, next) {
 router.get('/:center_id/:item_id/edit', isLoggedIn, isOwner, function(req, res, next) {
   Item.findOne({ _id: req.params.item_id }).populate('center').populate('category').exec(function(error, item) {
     Category.find({}).sort('englishName').exec(function(error, categories) {
-      res.render('admin/center/edit-item', { 
-        item: item, 
-        categories: categories, 
+      res.render('admin/center/edit-item', {
+        item: item,
+        categories: categories,
         action_url: '/admin/center/' + req.params.center_id + '/' + item._id + '/edit/',
         priorities: [
           { id: 0, name: "Low Priority" },
           { id: 1, name: "Medium Priority" },
           { id: 2, name: "High Priority" }
         ]
-      })
-    })
+      });
+    });
   });
 });
 
@@ -194,13 +194,13 @@ router.post('/:center_id/:item_id/edit', isLoggedIn, isOwner, function(req, res,
           console.log(err);
       });
     });
-  })
+  });
 });
 
 router.get('/:center_id/:item_id/delete', isLoggedIn, isOwner, function(req, res, next) {
   Item.findOneAndRemove({ _id: req.params.item_id }, function(error, center) {
     res.redirect('/admin/center/' + req.params.center_id + '/');
-  })
+  });
 });
 
 module.exports = router;

@@ -18,21 +18,12 @@ var CenterSchema = new Schema({
 });
 
 CenterSchema.statics = {
-
-  /**
-   * Load
-   *
-   * @param {Object} options
-   * @param {Function} cb
-   * @api private
-   */
-
   load: function (options, cb) {
     options.select = options.select || 'name';
     this.findOne(options.criteria)
       .select(options.select)
       .exec(cb);
   }
-}
+};
 
 mongoose.model('Center', CenterSchema);

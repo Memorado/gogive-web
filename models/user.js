@@ -27,7 +27,7 @@ UserSchema
     this.salt = this.makeSalt();
     this.hashed_password = this.encryptPassword(password);
   })
-  .get(function() { return this._password });
+  .get(function() { return this._password; });
 
 /**
  * Methods
@@ -92,21 +92,12 @@ UserSchema.methods = {
  */
 
 UserSchema.statics = {
-
-  /**
-   * Load
-   *
-   * @param {Object} options
-   * @param {Function} cb
-   * @api private
-   */
-
   load: function (options, cb) {
     options.select = options.select || 'name username';
     this.findOne(options.criteria)
       .select(options.select)
       .exec(cb);
   }
-}
+};
 
 mongoose.model('User', UserSchema);

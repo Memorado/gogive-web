@@ -13,9 +13,9 @@ var app = express();
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
-var dbURI = process.env.MONGO_URL
-if (dbURI == null) {
-  dbURI = "mongodb://localhost/db"
+var dbURI = process.env.MONGO_URL;
+if (dbURI === null) {
+  dbURI = "mongodb://localhost/db";
 }
 
 // Connect to mongodb
@@ -115,6 +115,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

@@ -23,13 +23,13 @@ ItemSchema
   .get(function() {
     switch(this.priority) {
       case 0:
-        return "Low Priority"
+        return "Low Priority";
       case 1:
-        return "Medium Priority"
+        return "Medium Priority";
       case 2:
-        return "High Priority"
+        return "High Priority";
       default:
-        return "Unknown Priority"
+        return "Unknown Priority";
     }
   });
 
@@ -37,7 +37,7 @@ ItemSchema
   .virtual('due_date_string')
   .get(function() {
     return dateFormat(this.due_date, "yyyy-mm-dd h:MM:ss");
-  })
+  });
 
 
 ItemSchema.statics = {
@@ -56,6 +56,6 @@ ItemSchema.statics = {
       .select(options.select)
       .exec(cb);
   }
-}
+};
 
 mongoose.model('Item', ItemSchema);
