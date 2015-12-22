@@ -13,7 +13,7 @@ var app = express();
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
-var dbURI = process.env.DBURL
+var dbURI = process.env.MONGO_URL
 if (dbURI == null) {
   dbURI = "mongodb://localhost/db"
 }
